@@ -1,4 +1,4 @@
-cnippetz-
+cnippetz
 =========
 
 Simple Code snippet collection
