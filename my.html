@@ -610,6 +610,29 @@ box-shadow: 0 0 5px #333;
 }</pre>
 </article>
 
+
+<article title="Hide long Text with shadow">
+<pre class="prettyprint lang-css linenums">
+  #textbox{
+   position: relative;
+  }
+  #textbox:before{
+      content:"";
+      display:block;
+      position:absolute;
+      height: 30px; width: 100%;
+      bottom: 0; left: 0;
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff 75%)
+  }</pre>
+
+  <pre class="prettyprint lang-html linenums">
+&lt;div id=&quot;textbox&quot;&gt;
+  &lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.&lt;/p&gt;
+&lt;/div&gt;</pre>
+</article>
+
+
+
 </section>
 
 <section title="GIT">
