@@ -568,6 +568,25 @@ user-select: none;</pre>
 </pre>
 </article>
 
+<article title="Position Background Image 3">
+<pre class="prettyprint lang-css linenums">
+body{
+  position: relative;
+}
+body::before {
+    background: url("../images/bg.jpg") no-repeat center center;
+    background-size: cover;
+    content: ' ';
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    will-change: transform;
+    z-index: -1;
+}</pre>
+</article>
+
 <article title="Hide placeholder Text on focus">
 <pre class="prettyprint lang-css linenums">
 input:focus::-webkit-input-placeholder {color:transparent;}
@@ -1290,6 +1309,21 @@ export PS1="[\[\e[31;1m\]\u\[\e[0m\]\[\e[35m\]@\[\e[0m\]\[\e[33m\]\h\[\e[0m\]:\[
   <article title="Remove SVN files recursive">
       <pre class="prettyprint">
 find . -type d -name .svn -print0 | xargs -0 rm -rf</pre>
+  </article>
+
+    <article title="Find and sort Files in past 1 hour">
+      <pre class="prettyprint">
+find . -type f -mmin +60  -exec ls -1rtls "{}" +</pre>
+  </article>
+
+    <article title="Find and delete in past 1 hour">
+      <pre class="prettyprint">
+find . -type f -mmin +60  -exec rm -rf {} \</pre>
+  </article>
+
+  <article title="sendmail">
+      <pre class="prettyprint">
+echo -e "Subject: Test" | /usr/bin/sendmail -v your@address.tld</pre>
   </article>
 
 </section>
