@@ -31,6 +31,21 @@ find . -type f -mmin +60  -exec rm -rf {} \
 echo -e "Subject: Test" | /usr/bin/sendmail -v your@address.tld
 ```
 
+### Swap File ###
+```
+swapon -s
+
+dd if=/dev/zero of=/swapfile1 bs=1024 count=524288
+chown root:root /swapfile1
+chmod 0600 /swapfile1
+mkswap /swapfile1
+swapon /swapfile1
+echo "/swapfile1 none swap sw 0 0" >> /etc/fstab
+
+free -m
+
+```
+
 
 ## MySql ##
 ### Backup All Structur+Data Databases ###
