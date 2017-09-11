@@ -171,3 +171,26 @@ SELECT
  WHERE
   REFERENCED_TABLE_NAME = "my_table";
 ```
+
+## Apache ##
+
+### Permalinks mod_rewrite ###
+```
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} -s [OR]
+  RewriteCond %{REQUEST_FILENAME} -l [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^.*$ - [NC,L]
+  RewriteRule ^.*$ index.php [NC,Lo]
+</IfModule>
+```
+
+### Https mod_rewrite ###
+```
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+```
