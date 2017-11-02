@@ -195,7 +195,7 @@ SELECT
 </IfModule>
 ```
 
-### WWW mod_rewrite ###
+### WWW mod_rewrite ###ect
 ```
 <IfModule mod_rewrite.c>
   RewriteEngine On
