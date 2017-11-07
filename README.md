@@ -5,34 +5,34 @@ cnippetz
 ## CMD ##
 
 ### Zip & Tar ###
-```
+```bash
 tar -cvf - * | gzip > *.tar.gz
 
 tar xfvz *.tar.gz
 ```
 ### Search ###
-```
+```bash
 find /home -type f -name *.txt | xargs grep "keyword"
 ```
 ### Remove SVN files recursive ###
-```
+```bash
 find . -type d -name .svn -print0 | xargs -0 rm -rf
 ```
 ### Find and sort Files in past 1 hour ###
-```
+```bash
 find . -type f -mmin +60  -exec ls -1rtls "{}" +
 ```
 ### Find and delete in past 1 hour ###
-```
+```bash
 find . -type f -mmin +60  -exec rm -rf {} \
 ```
 ### sendmail test ###
-```
+```bash
 echo -e "Subject: Test" | /usr/bin/sendmail -v your@address.tld
 ```
 
 ### Swap File ###
-```
+```bash
 swapon -s
 
 dd if=/dev/zero of=/swapfile1 bs=1024 count=524288
@@ -43,9 +43,38 @@ swapon /swapfile1
 echo "/swapfile1 none swap sw 0 0" >> /etc/fstab
 
 free -m
-
 ```
 
+## GIT ##
+### Add submodule and checkout tag ###
+```bash
+git submodule add git//project.git new/path
+git commit -m"new submodule"
+git push
+
+# go in submodule if you want checkout specific tag or branch of submodule
+cd new/path
+# check your tags
+git tag -l
+git checkout $tag
+git commit -m'new tag'
+# go back to project root
+cd ..
+# update submodule to new tag
+git submodule update --merge --rebase
+```
+
+### Remove Submodule ###
+```bash
+submodulePath="vendor/example"
+git config -f .git/config --remove-section "submodule.${submodulePath}"
+git config -f .gitmodules --remove-section "submodule.${submodulePath}"
+git rm --cached "${submodulePath}"
+rm -rf "${submodulePath}"
+rm -rf ".git/modules/${submodulePath}"
+git add .gitmodules
+git commit -m "Removed ${submodulePath}"
+```
 
 ## MySql ##
 ### Backup All Structur+Data Databases ###
@@ -76,22 +105,23 @@ $mysql> update user set password=PASSWORD("NEWPASSWORD") where User='root';
 ```
 
 ### Enable/Disable Foreign Key Checks ###
-```
+```sql
 # disable foreign key checks
-$mysql> SET FOREIGN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS = 0;
+
 #enable the foreign key checks
-$mysql> SET FOREIGN_KEY_CHECKS = 1;
+SET FOREIGN_KEY_CHECKS = 1;
 ```
 
 ### Get Random Rows ###
-```
+```sql
 SELECT t.* FROM table as t,
 (SELECT ROUND((SELECT MAX(id) FROM table) *rand()) as rnd FROM test LIMIT 100) tmp
 WHERE t.id in (rnd)
 ```
 
 ### Profiling ###
-```
+```sql
 SET profiling=1;
 SELECT * FROM table;
 SHOW profiles;
@@ -101,9 +131,9 @@ SET profiling=0;
 ```
 
 ### Query optimizing ###
-```
-$mysql> EXPLAIN EXTENDED SELECT * FROM table WHERE id = 12345
-$mysql> SHOW WARNINGS;
+```sql
+EXPLAIN EXTENDED SELECT * FROM table WHERE id = 12345
+SHOW WARNINGS;
 ```
 
 ### Reset root user ###
@@ -152,14 +182,14 @@ mysql -u root -p
 ```
 
 ### FLUSH PRIVILEGES ###
-```
+```sql
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 quit;
 ```
 
 ### Get Table ForeignKey Dependency ###
-```
+```sql
 SELECT
   TABLE_NAME,
   COLUMN_NAME,
@@ -175,7 +205,7 @@ SELECT
 ## Apache ##
 
 ### Permalinks mod_rewrite ###
-```
+```apacheconfig
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteCond %{REQUEST_FILENAME} -s [OR]
@@ -187,7 +217,7 @@ SELECT
 ```
 
 ### Https mod_rewrite ###
-```
+```apacheconfig
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteCond %{HTTPS} !=on
@@ -196,10 +226,47 @@ SELECT
 ```
 
 ### WWW mod_rewrite ###ect
-```
+```apacheconfig
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^(.*)$ https://%1$1 [R=301,L]
 </IfModule>
+```
+
+## Nginx ##
+
+### Enable Multisite Sub directory language in Wordpress ###
+```nginxconfig
+server {
+    listen 80;
+    server_name domain.dev;
+    
+    access_log {PATH_LOG_FILE}/domain.dev_access.log;
+    error_log {PATH_LOG_FILE}/domain.dev_error.log error;
+
+    root   {DOC_PATH}/;
+    index  index.php index.html;
+
+    if (!-e $request_filename) {
+        rewrite /wp-admin$ $scheme://$host$uri/ permanent;
+        rewrite ^(/[^/]+)?(/wp-.*) $2 last;
+        rewrite ^/[^/]+(/.*.php)$ $1 last;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location ~ ^\/(en)(\/?.*)$ {
+        try_files $2 $2/ /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+}
 ```
