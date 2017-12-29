@@ -30,6 +30,10 @@ find . -type f -mmin +60  -exec rm -rf {} \
 ```bash
 echo -e "Subject: Test" | /usr/bin/sendmail -v your@address.tld
 ```
+### check user permission on folder ###
+```bash
+sudo -u www-data stat /path/to/folder/
+```
 
 ### Swap File ###
 ```bash
@@ -74,6 +78,15 @@ rm -rf "${submodulePath}"
 rm -rf ".git/modules/${submodulePath}"
 git add .gitmodules
 git commit -m "Removed ${submodulePath}"
+```
+
+## Docker ##
+### Remove all images and containers
+```bash
+# Delete all containers
+docker rm $(docker ps -a -q)
+# Delete all images
+docker rmi $(docker images -q)
 ```
 
 ## MySql ##
