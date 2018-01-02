@@ -83,6 +83,8 @@ git commit -m "Removed ${submodulePath}"
 ## Docker ##
 ### Remove all images and containers
 ```bash
+# Kill all container
+docker kill $(docker ps -q)
 # Delete all containers
 docker rm $(docker ps -a -q)
 # Delete all images
