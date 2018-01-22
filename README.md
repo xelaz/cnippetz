@@ -95,6 +95,8 @@ docker save mage/name | gzip -c > image.tgz
 docker rm $( docker ps -q -f status=exited)
 # Delete all dangling (unused) images
 docker rmi $( docker images -q -f dangling=true)
+# get ssh connection to docker
+docker exec -it ${DOCKER_ID} bash
 ```
 
 ## MySql ##
