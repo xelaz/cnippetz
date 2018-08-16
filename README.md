@@ -60,6 +60,10 @@ echo "/swapfile1 none swap sw 0 0" >> /etc/fstab
 
 free -m
 ```
+### Rename recursive File Extensions
+```
+find . -name '*.jade' | xargs rename 's/\.jade$/.pug/'
+```
 
 ## GIT ##
 ### Add submodule and checkout tag ###
