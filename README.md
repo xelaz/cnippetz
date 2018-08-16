@@ -34,6 +34,18 @@ echo -e "Subject: Test" | /usr/bin/sendmail -v your@address.tld
 ```bash
 sudo -u www-data stat /path/to/folder/
 ```
+### Add a new user to the www-data group
+```
+sudo useradd -g www-data myuser
+### set the password for myuser ###
+sudo passwd myuser
+```
+### Add a existing user to www-data group
+```
+sudo usermod -a -G www-data  myuser
+id myuser
+groups myuser
+```
 
 ### Swap File ###
 ```bash
