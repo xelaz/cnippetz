@@ -46,6 +46,12 @@ sudo usermod -a -G www-data  myuser
 id myuser
 groups myuser
 ```
+### www-data supplementary groups membership
+```
+sudo groupadd myuser
+sudo useradd -g vivek -G www-data,ftp myuser
+sudo passwd myuser
+```
 
 ### Swap File ###
 ```bash
