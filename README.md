@@ -13,6 +13,7 @@ tar xfvz *.tar.gz
 ### Search ###
 ```bash
 find /home -type f -name *.txt | xargs grep "keyword"
+grep -rnw '/path/to/somewhere/' -e 'pattern'
 ```
 ### Remove SVN files recursive ###
 ```bash
