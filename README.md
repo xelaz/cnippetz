@@ -7,9 +7,14 @@ cnippetz
 ### Zip & Tar ###
 ```bash
 tar -cvf - * | gzip > *.tar.gz
-
 tar xfvz *.tar.gz
 ```
+
+### Mac OS remove @ right's
+```
+xattr -cr ${FOLDER}
+```
+
 ### Search ###
 ```bash
 find /home -type f -name *.txt | xargs grep "keyword"
