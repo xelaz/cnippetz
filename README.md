@@ -14,8 +14,11 @@ tar xfvz *.tar.gz
 ```
 xattr -cr ${FOLDER}
 ```
-
-### Search ###
+### Search Files ###
+```bash
+find /home -name *PATTERN*
+```
+### Search in Files ###
 ```bash
 find /home -type f -name *.txt | xargs grep "keyword"
 grep -rnw '/path/to/somewhere/' -e 'pattern'
