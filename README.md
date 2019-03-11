@@ -128,6 +128,8 @@ docker rm $(docker ps -q -f status=exited)
 docker rmi $(docker images -q -f dangling=true)
 # get ssh connection to docker
 docker exec -it ${DOCKER_ID} bash
+# delete all
+docker system prune -a
 ```
 
 ## MySql ##
