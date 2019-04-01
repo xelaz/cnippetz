@@ -79,6 +79,10 @@ free -m
 ```
 find . -name '*.jade' | xargs rename 's/\.jade$/.pug/'
 ```
+### Get listen port info ###
+```
+macOSX: lsof -iTCP:$PORT
+```
 
 ## GIT ##
 ### Add submodule and checkout tag ###
