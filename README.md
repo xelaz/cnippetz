@@ -83,7 +83,7 @@ find . -name '*.jade' | xargs rename 's/\.jade$/.pug/'
 ```
 macOSX: lsof -iTCP:$PORT
 ```
-### Set Folter 755 nad Files to 644 ###
+### Set Folder 755 + Files 644 ###
 ```
 chmod -R u+rwX,go+rX,go-w /path/to/dir
 ```
@@ -124,6 +124,10 @@ rm -rf "${submodulePath}"
 rm -rf ".git/modules/${submodulePath}"
 git add .gitmodules
 git commit -m "Removed ${submodulePath}"
+```
+### Remove Files from repo ###
+```
+git rm -rf --ignore-unmatch --cached 
 ```
 
 ## Docker ##
