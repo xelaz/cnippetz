@@ -83,6 +83,17 @@ find . -name '*.jade' | xargs rename 's/\.jade$/.pug/'
 ```
 macOSX: lsof -iTCP:$PORT
 ```
+### Set Folter 755 nad Files to 644 ###
+```
+chmod -R u+rwX,go+rX,go-w /path/to/dir
+```
+or
+```
+directory:
+find /desired_location -type d -print0 | xargs -0 chmod 0755
+folder:
+find /desired_location -type f -print0 | xargs -0 chmod 0644
+```
 
 ## GIT ##
 ### Add submodule and checkout tag ###
