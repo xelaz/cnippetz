@@ -127,7 +127,7 @@ git commit -m "Removed ${submodulePath}"
 ```
 ### Remove Files from repo ###
 ```
-git rm -rf --ignore-unmatch --cached 
+git rm -rf --ignore-unmatch --cached $FILE
 ```
 
 ## Docker ##
