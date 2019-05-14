@@ -180,7 +180,10 @@ $mysql> update user set password=PASSWORD("NEWPASSWORD") where User='root';
 ```
 ### Get Table sizes ###
 ```sql
-SELECT table_name AS "Table", round(((data_length + index_length) / 1024 / 1024), 2) as size FROM information_schema.TABLES WHERE table_schema = "${DBNAME}" ORDER BY size DESC;
+SELECT table_name AS "Table", round(((data_length + index_length) / 1024 / 1024), 2) as size 
+FROM information_schema.TABLES 
+WHERE table_schema = "${DBNAME}" 
+ORDER BY size DESC;
 ```
 
 ### Enable/Disable Foreign Key Checks ###
