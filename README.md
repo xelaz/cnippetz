@@ -82,6 +82,7 @@ find . -name '*.jade' | xargs rename 's/\.jade$/.pug/'
 ### Get listen port info ###
 ```
 macOSX: lsof -iTCP:$PORT
+linux:  netstat -tulpn | grep LISTEN
 ```
 ### Set Folder 755 + Files 644 ###
 ```
