@@ -357,3 +357,10 @@ server {
     }
 }
 ```
+
+## NodeJS User and NVM
+```
+useradd -s /bin/bash -m -g www-data nodejs
+su nodejs
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
+```
