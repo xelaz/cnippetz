@@ -364,3 +364,37 @@ useradd -s /bin/bash -m -g www-data nodejs
 su nodejs
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
 ```
+
+## Install Nginx + letsencrypt + brotli
+```
+add-apt-repository universe
+add-apt-repository ppa:certbot/certbot
+
+wget https://nginx.org/keys/nginx_signing.key
+sudo apt-key add nginx_signing.key
+rm nginx_signing.key
+printf "deb https://nginx.org/packages/mainline/ubuntu/ `lsb_release -sc` nginx \ndeb-src https://nginx.org/packages/mainline/ubuntu/ `lsb_release -sc` nginx \n" >> /etc/apt/sources.list.d/nginx_mainline.list
+apt-get update
+apt install -y nginx nginx-module-geoip certbot python-certbot-nginx build-essential software-properties-common libpcre3 libpcre3-dev zlib1g zlib1g-dev openssl libssl-dev
+certbot --nginx
+
+printf "\nload_module modules/ngx_http_geoip_module.so;\nload_module modules/ngx_stream_geoip_module.so;\n$(cat /etc/nginx/nginx.conf)" > /etc/nginx/nginx.conf
+nginx -v
+systemctl enable nginx.service
+wget https://nginx.org/download/nginx-1.17.5.tar.gz && tar zxvf nginx-1.17.5.tar.gz
+rm nginx-1.17.5.tar.gz
+
+git clone https://github.com/eustas/ngx_brotli.git
+cd ngx_brotli && git submodule update --init && cd ~
+
+cd nginx-1.17.5/
+./configure --with-compat --add-dynamic-module=../ngx_brotli
+make modules
+sudo cp objs/*.so /etc/nginx/modules
+ll /usr/lib/nginx/modules
+chmod 644 /usr/lib/nginx/modules/*.so
+printf "\nload_module modules/ngx_http_brotli_filter_module.so;\nload_module modules/ngx_http_brotli_static_module.so;\n$(cat /etc/nginx/nginx.conf)" > /etc/nginx/nginx.conf
+rm nginx-1.17.5 ngx_brotli -r
+
+add-apt-repository universe
+```
