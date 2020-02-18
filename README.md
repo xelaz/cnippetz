@@ -35,6 +35,10 @@ find . -type f -mmin +60  -exec ls -1rtls "{}" +
 ```bash
 find . -type f -mmin +60  -exec rm -rf {} \
 ```
+### truncate log file to last 1000 lines ###
+```
+tail -n 1000 file.log > tmp.log && rm file.log && mv tmp.log file.log && chown www-data:www-data file.log
+```
 ### sendmail test ###
 ```bash
 echo -e "Subject: Test" | /usr/bin/sendmail -v your@address.tld
