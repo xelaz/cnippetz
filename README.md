@@ -406,3 +406,7 @@ rm nginx-1.17.5 ngx_brotli -r
 
 add-apt-repository universe
 ```
+### create wildcard cert with letsencrypt ###
+```
+# certbot certonly --manual --manual-public-ip-logging-ok --preferred-challenges dns-01 --server https://acme-v02.api.letsencrypt.org/directory -d "*.<your-domain>" -d <your-domain>
+```
