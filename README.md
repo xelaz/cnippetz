@@ -6,7 +6,7 @@ cnippetz
 
 ### Zip & Tar ###
 ```bash
-tar -cvf - * | gzip > *.tar.gz
+tar -czvf /path/to/backups/archive.tar.gz /path/to/archive --exclude=*.log
 tar xfvz *.tar.gz
 ```
 
