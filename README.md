@@ -98,11 +98,15 @@ chmod -R u+rwX,go+rX,go-w /path/to/dir
 ```
 or
 ```
-directory:
 find /desired_location -type d -print0 | xargs -0 chmod 0755
-folder:
 find /desired_location -type f -print0 | xargs -0 chmod 0644
 ```
+or
+```
+find /var/www/location -type d -exec chmod 755 {} \;
+find /var/www/location -type f -exec chmod 644 {} \;
+```
+
 ### Count writen code lines
 ```
 find -E . -regex '.*\.(js|jsx|gql|scss|less)' | xargs wc -l | sort -r
