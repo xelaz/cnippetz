@@ -43,6 +43,10 @@ tail -n 1000 file.log > tmp.log && rm file.log && mv tmp.log file.log && chown w
 ```
 tail -n 1000 access.log > access.tmp && echo "" > access.log && cat access.tmp > access.log && rm access.tmp
 ```
+### truncate log file(s) in folder ###
+```
+find . -type f -name "*.log" | xargs truncate -s 0
+```
 ### sendmail test ###
 ```bash
 echo -e "Subject: Test" | /usr/bin/sendmail -v your@address.tld
