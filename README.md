@@ -111,6 +111,11 @@ find /var/www/location -type d -exec chmod 755 {} \;
 find /var/www/location -type f -exec chmod 644 {} \;
 ```
 
+## reset crlf to lf on OS x
+```
+find ./ -not \( -name .git -prune \) -type f -exec perl -pi -e 's/\r\n|\n|\r/\n/g' {} \;
+```
+
 ### Count writen code lines
 ```
 find -E . -regex '.*\.(js|jsx|gql|scss|less)' | xargs wc -l | sort -r
